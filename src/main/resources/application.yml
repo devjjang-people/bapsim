@@ -1,0 +1,19 @@
+#spring:
+#  application:
+#    name: bapsim
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bapsim}
+#    username: ${SPRING_DATASOURCE_USERNAME:bapsim_user}
+#    password: ${SPRING_DATASOURCE_PASSWORD:bapsim1234}
+#    driver-class-name: org.postgresql.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+
+server:
+  port: 8080
