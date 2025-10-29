@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: bapsim
+    environment:
+      POSTGRES_USER: bapsim_user
+      POSTGRES_PASSWORD: bapsim1234
+      POSTGRES_DB: bapsim
+    ports:
+      - "5432:5432"
+    volumes:
+      - bapsim_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  bapsim_data:
