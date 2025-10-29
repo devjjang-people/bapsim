@@ -1,33 +1,18 @@
-version: "3.9"
+version: '3.8'
+
 services:
   db:
-    image: postgres:15
-    container_name: devpeople-postgres
-    restart: always
+    image: postgres:16
+    container_name: bapsim
     environment:
-      POSTGRES_DB: devpeople_db
-      POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpass
+      POSTGRES_USER: bapsim_user
+      POSTGRES_PASSWORD: bapsim1234
+      POSTGRES_DB: bapsim
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  app:
-    build: .
-    container_name: bapsim_app
+      - bapsim_data:/var/lib/postgresql/data
     restart: always
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://bapsim_postgres:5432/bapsim
-      SPRING_DATASOURCE_USERNAME: bapsim_user
-      SPRING_DATASOURCE_PASSWORD: bapsim1234
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    depends_on:
-      - postgres
-    networks:
-      - bapsim_network
 
 volumes:
-  postgres_data:
+  bapsim_data:
