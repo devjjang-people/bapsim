@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "cart_item_options")
+@Table(name = "cart_item_option")
 public class CartItemOption extends BaseEntity {
 
     @Id
