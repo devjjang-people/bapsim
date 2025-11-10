@@ -1,6 +1,7 @@
 package com.devpeople.bapsim.domain.address.entity;
 
 import com.devpeople.bapsim.domain.user.entity.User;
+import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address {
+public class Address extends BaseEntity {
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,19 +59,10 @@ public class Address {
      * 주 배송지 여부 (사용자당 1개만 TRUE 가능)
      */
     @Column(name = "is_main_address", nullable = false)
+    @Builder.Default
     private Boolean isMainAddress = false;
 
-    /** 등록일시 */
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    /** 수정일시 */
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    /** 삭제일시 */
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    /** 주소 삭제 여부 */
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }

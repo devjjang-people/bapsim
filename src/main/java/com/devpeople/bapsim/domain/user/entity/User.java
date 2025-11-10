@@ -1,5 +1,6 @@
 package com.devpeople.bapsim.domain.user.entity;
 
+import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity {
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,29 +52,4 @@ public class User {
     /** 최근 로그인 시각 */
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
-
-    /** 생성일시 */
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    /** 수정일시 */
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    /** 삭제일시 */
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
-    // 삭제 메서드
-    public void markDeleted() {
-        this.status = "WITHDRAWN";
-        this.deletedAt = LocalDateTime.now();
-    }
-
-    // 계정 활성화
-    public boolean isActive() {
-        return "ACTIVE".equals(this.status);
-    }
 }

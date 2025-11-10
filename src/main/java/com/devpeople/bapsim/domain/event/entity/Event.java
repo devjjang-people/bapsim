@@ -1,5 +1,6 @@
 package com.devpeople.bapsim.domain.event.entity;
 
+import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Event {
+public class Event extends BaseEntity {
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,18 +53,4 @@ public class Event {
     /** 종료 시각 */
     @Column(name = "end_at")
     private LocalDateTime endAt;
-
-    /** 생성일시 */
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    /** 수정일시 */
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    /** 삭제일시 */
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 }

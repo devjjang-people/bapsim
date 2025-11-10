@@ -1,5 +1,6 @@
 package com.devpeople.bapsim.domain.store.entity;
 
+import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Store {
+public class Store extends BaseEntity {
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,19 +48,6 @@ public class Store {
 
     /** 영업 여부 (삭제 ?) */
     @Column(name = "is_open", nullable = false)
+    @Builder.Default
     private Boolean isOpen = true;
-
-    /** 등록일시 */
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    /** 수정일시 */
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    /** 삭제일시 */
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 }

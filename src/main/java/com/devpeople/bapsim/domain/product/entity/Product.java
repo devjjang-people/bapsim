@@ -1,6 +1,7 @@
 package com.devpeople.bapsim.domain.product.entity;
 
 import com.devpeople.bapsim.domain.store.entity.Store;
+import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+public class Product extends BaseEntity {
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,23 +50,10 @@ public class Product {
 
     /** 상품 리뷰 개수 */
     @Column(name = "review_count", nullable = false)
+    @Builder.Default
     private Integer reviewCount = 0;
 
     /** 판매 상태 (TRUE = 판매중, FALSE = 비활성화) */
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
-
-    /** 등록일시 */
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
-    /** 수정일시 */
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    /** 삭제일시 */
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 }
