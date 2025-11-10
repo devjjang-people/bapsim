@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user_coupons")
+@Table(name = "user_coupon")
 public class UserCoupon extends BaseEntity {
 
     @Id

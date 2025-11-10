@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "order_items")
+@Table(name = "order_item")
 public class OrderItem extends BaseEntity {
 
     @Id
