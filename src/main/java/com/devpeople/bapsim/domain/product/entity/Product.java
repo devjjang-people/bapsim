@@ -50,6 +50,7 @@ public class Product extends BaseEntity {
 
     /** 상품 리뷰 개수 */
     @Column(name = "review_count", nullable = false)
+    @Builder.Default
     private Integer reviewCount = 0;
 
     /** 판매 상태 (TRUE = 판매중, FALSE = 비활성화) */

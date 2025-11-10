@@ -48,5 +48,6 @@ public class Store extends BaseEntity {
 
     /** 영업 여부 (삭제 ?) */
     @Column(name = "is_open", nullable = false)
+    @Builder.Default
     private Boolean isOpen = true;
 }

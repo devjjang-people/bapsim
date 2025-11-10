@@ -59,6 +59,7 @@ public class Address extends BaseEntity {
      * 주 배송지 여부 (사용자당 1개만 TRUE 가능)
      */
     @Column(name = "is_main_address", nullable = false)
+    @Builder.Default
     private Boolean isMainAddress = false;
 
     /** 주소 삭제 여부 */
