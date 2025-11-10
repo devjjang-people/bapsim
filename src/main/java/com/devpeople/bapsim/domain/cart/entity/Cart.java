@@ -4,17 +4,29 @@ import com.devpeople.bapsim.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * 장바구니 테이블
+ */
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "cart")
+@Builder
 public class Cart extends BaseEntity {
 
+    /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;   // FK only
+    /** user FK  */
+    @Column(nullable = false)
+    private Long userId;
+
+    /** cart FK  */
+    @Column(nullable = false)
     private Long storeId;  // FK only
 
 
