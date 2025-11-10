@@ -60,4 +60,8 @@ public class Address extends BaseEntity {
      */
     @Column(name = "is_main_address", nullable = false)
     private Boolean isMainAddress = false;
+
+    /** 주소 삭제 여부 */
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }
