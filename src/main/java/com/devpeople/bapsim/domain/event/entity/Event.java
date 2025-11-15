@@ -53,4 +53,8 @@ public class Event extends BaseEntity {
     /** 종료 시각 */
     @Column(name = "end_at")
     private LocalDateTime endAt;
+
+    /** 이벤트 종료 여부 (Y / N) */
+    @Column(name = "is_ended")
+    private char isEnded;
 }
