@@ -56,4 +56,8 @@ public class Product extends BaseEntity {
     /** 판매 상태 (TRUE = 판매중, FALSE = 비활성화) */
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
+    /** 상품 삭제 여부 */
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
 }
