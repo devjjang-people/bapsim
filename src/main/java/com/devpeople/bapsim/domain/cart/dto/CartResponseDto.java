@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 
 public class CartResponseDto {
 
-    /**
-     * git 테스트
-     */
     /** 장바구니 고유 ID */
     private Long id;
 
