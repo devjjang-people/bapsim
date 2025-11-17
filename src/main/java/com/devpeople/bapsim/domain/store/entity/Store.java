@@ -50,4 +50,10 @@ public class Store extends BaseEntity {
     @Column(name = "is_open", nullable = false)
     @Builder.Default
     private Boolean isOpen = true;
+
+    /** 가게 삭제 여부 (삭제 ?) */
+    @Column(name = "is_deleted", nullable = false)
+    @Builder.Default
+    private Boolean isDeleted = true;
+
 }
