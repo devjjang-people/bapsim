@@ -21,7 +21,6 @@ public class ProductService {
     }
 
     public List<Product> getProductList() {
-
         return productRepository.findAll();
     }
 
@@ -29,7 +28,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product deleteAddress(Integer id) {
+    public Product deleteProduct(Integer id) {
 
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         product.setDescription("상품 삭제");
