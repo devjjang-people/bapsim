@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Event extends BaseEntity {
+
     /** 기본키 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
