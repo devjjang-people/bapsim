@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class Event extends BaseEntity {
 
     /** 기본키 */
@@ -54,4 +54,8 @@ public class Event extends BaseEntity {
     /** 종료 시각 */
     @Column(name = "end_at")
     private LocalDateTime endAt;
+
+    /** 이벤트 종료 여부 (Y / N) */
+    @Column(name = "is_ended")
+    private char isEnded;
 }
