@@ -15,7 +15,7 @@ import java.util.List;
 public class AddressService {
     private final AddressRepository addressRepository;
 
-    public Address getAddressById(Integer id) {
+    public Address getAddressById(Long id) {
 
         return addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));
     }
@@ -29,7 +29,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address deleteAddress(Integer id) {
+    public Address deleteAddress(Long id) {
 
         Address address = addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));
         address.setIsDeleted(true);

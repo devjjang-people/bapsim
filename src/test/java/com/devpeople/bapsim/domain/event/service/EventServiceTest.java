@@ -67,27 +67,27 @@ class EventServiceTest {
     @DisplayName("ID로 이벤트 조회 성공")
     void getEventById_Success() {
         // Given: eventRepository.findById(1L) 호출 시 activeEvent 반환 설정
-        given(eventRepository.findById(1)).willReturn(Optional.of(activeEvent));
+        given(eventRepository.findById(1L)).willReturn(Optional.of(activeEvent));
 
         // When: 서비스 메서드 호출
-        Event foundEvent = eventService.getEventById(1);
+        Event foundEvent = eventService.getEventById(1L);
 
         // Then: 반환된 이벤트의 ID와 이름 검증
         assertThat(foundEvent).isNotNull();
         assertThat(foundEvent.getId()).isEqualTo(1L);
         assertThat(foundEvent.getName()).isEqualTo("1주년 기념 이벤트");
-        verify(eventRepository).findById(1);
+        verify(eventRepository).findById(1L);
     }
 
     @Test
     @DisplayName("존재하지 않는 ID로 이벤트 조회 시 예외 발생")
     void getEventById_NotFound() {
         // Given: eventRepository.findById(99) 호출 시 빈 Optional 반환 설정
-        given(eventRepository.findById(99)).willReturn(Optional.empty());
+        given(eventRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 IllegalArgumentException이 발생하는지 검증
         assertThrows(IllegalArgumentException.class, () -> {
-            eventService.getEventById(99);
+            eventService.getEventById(99L);
         }, "이벤트를 찾을 수 없습니다. id=99"); // 예외 메시지 검증 추가
     }
 
@@ -131,13 +131,13 @@ class EventServiceTest {
     @DisplayName("이벤트 논리적 삭제 성공")
     void deleteEvent_Success() {
         // 1. Given: 조회 요청 시 activeEvent가 존재한다고 가정
-        given(eventRepository.findById(1)).willReturn(Optional.of(activeEvent));
+        given(eventRepository.findById(1L)).willReturn(Optional.of(activeEvent));
 
         // 2. Given: save 요청 시 변경된 객체를 반환한다고 가정
         given(eventRepository.save(any(Event.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // When: 서비스 메서드 호출
-        Event deletedEvent = eventService.deleteEvent(1);
+        Event deletedEvent = eventService.deleteEvent(1L);
 
         // Then
         assertThat(deletedEvent.getIsEnded()).isEqualTo('Y');
@@ -146,7 +146,7 @@ class EventServiceTest {
         // 참고: status 필드도 "CLOSED"와 같은 상태로 변경하는 로직을 추가할 수 있습니다.
         // assertThat(deletedEvent.getStatus()).isEqualTo("CLOSED");
 
-        verify(eventRepository).findById(1);
+        verify(eventRepository).findById(1L);
         verify(eventRepository).save(deletedEvent);
     }
 
@@ -154,11 +154,11 @@ class EventServiceTest {
     @DisplayName("존재하지 않는 이벤트 삭제 시 예외 발생")
     void deleteEvent_NotFound() {
         // Given: eventRepository.findById(99) 호출 시 빈 Optional 반환 설정
-        given(eventRepository.findById(99)).willReturn(Optional.empty());
+        given(eventRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 IllegalArgumentException이 발생하는지 검증
         assertThrows(IllegalArgumentException.class, () -> {
-            eventService.deleteEvent(99);
+            eventService.deleteEvent(99L);
         });
     }
 }
