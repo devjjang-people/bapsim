@@ -61,27 +61,27 @@ class ProductServiceTest {
     @DisplayName("ID로 상품 조회 성공")
     void getProductById_Success() {
         // Given: Repository가 ID 1로 조회 시 상품 반환 설정
-        given(productRepository.findById(1)).willReturn(Optional.of(testProduct));
+        given(productRepository.findById(1L)).willReturn(Optional.of(testProduct));
 
         // When: 서비스 메서드 호출
-        Product foundProduct = productService.getProductById(1);
+        Product foundProduct = productService.getProductById(1L);
 
         // Then: 반환된 상품 정보 검증
         assertThat(foundProduct).isNotNull();
         assertThat(foundProduct.getId()).isEqualTo(1L);
         assertThat(foundProduct.getName()).isEqualTo("특제 닭볶음탕");
-        verify(productRepository).findById(1);
+        verify(productRepository).findById(1L);
     }
 
     @Test
     @DisplayName("존재하지 않는 ID로 상품 조회 시 ProductNotFoundException 발생")
     void getProductById_NotFound() {
         // Given: Repository가 ID 99로 조회 시 빈 Optional 반환 설정
-        given(productRepository.findById(99)).willReturn(Optional.empty());
+        given(productRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 ProductNotFoundException이 발생하는지 검증
         assertThrows(ProductNotFoundException.class, () -> {
-            productService.getProductById(99);
+            productService.getProductById(99L);
         });
     }
 
@@ -129,20 +129,20 @@ class ProductServiceTest {
     @DisplayName("상품 논리적 삭제 성공 (isDeleted=true, Description 변경)")
     void deleteProduct_Success() {
         // 1. Given: 조회 요청 시 상품이 존재한다고 가정
-        given(productRepository.findById(1)).willReturn(Optional.of(testProduct));
+        given(productRepository.findById(1L)).willReturn(Optional.of(testProduct));
 
         // 2. Given: save 요청 시 변경된 객체를 반환한다고 가정
         // (실제 save는 testProduct 객체의 내부 값을 변경한 후 호출됨)
         given(productRepository.save(any(Product.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // When: 서비스 메서드 호출
-        Product deletedProduct = productService.deleteProduct(1);
+        Product deletedProduct = productService.deleteProduct(1L);
 
         // Then: 엔티티의 상태 변경(논리적 삭제)이 예상대로 이루어졌는지 확인
         assertThat(deletedProduct.getIsDeleted()).isTrue();
         assertThat(deletedProduct.getDescription()).isEqualTo("상품 삭제");
 
-        verify(productRepository).findById(1);
+        verify(productRepository).findById(1L);
         verify(productRepository).save(deletedProduct);
     }
 
@@ -150,11 +150,11 @@ class ProductServiceTest {
     @DisplayName("존재하지 않는 상품 삭제 시 ProductNotFoundException 발생")
     void deleteProduct_NotFound() {
         // Given: Repository가 ID 99로 조회 시 빈 Optional 반환 설정
-        given(productRepository.findById(99)).willReturn(Optional.empty());
+        given(productRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 ProductNotFoundException이 발생하는지 검증
         assertThrows(ProductNotFoundException.class, () -> {
-            productService.deleteProduct(99);
+            productService.deleteProduct(99L);
         });
     }
 }

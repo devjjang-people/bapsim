@@ -15,7 +15,7 @@ import java.util.List;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public Event getEventById(Integer id) {
+    public Event getEventById(Long id) {
 
         return eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이벤트를 찾을 수 없습니다. id=" + id));
     }
@@ -29,7 +29,7 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event deleteEvent(Integer id) {
+    public Event deleteEvent(Long id) {
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이벤트를 찾을 수 없습니다. id=" + id));
         event.setDescription("삭제");
         event.setIsEnded('Y');

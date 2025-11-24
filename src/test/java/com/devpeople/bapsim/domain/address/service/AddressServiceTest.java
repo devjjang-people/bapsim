@@ -3,7 +3,6 @@ package com.devpeople.bapsim.domain.address.service;
 import com.devpeople.bapsim.domain.address.entity.Address;
 import com.devpeople.bapsim.domain.address.repository.AddressRepository;
 import com.devpeople.bapsim.global.exception.AddressNotFoundException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class AddressServiceTest {
@@ -43,26 +42,26 @@ class AddressServiceTest {
     @Test
     void getAddressById_정상조회() {
         // given
-        when(addressRepository.findById(1)).thenReturn(Optional.of(address));
+        when(addressRepository.findById(1L)).thenReturn(Optional.of(address));
 
         // when
-        Address result = addressService.getAddressById(1);
+        Address result = addressService.getAddressById(1L);
 
         // then
         assertThat(result).isNotNull();
         assertThat(result.getAddress1()).isEqualTo("서울시 강남구 테헤란로 123");
         assertTrue(address.getZipcode().startsWith("06"));
 
-        verify(addressRepository, times(1)).findById(1);
+        verify(addressRepository, times(1)).findById(1L);
     }
 
     @Test
     void getAddressById_주소없음_예외발생() {
         // given
-        when(addressRepository.findById(999)).thenReturn(Optional.empty());
+        when(addressRepository.findById(999L)).thenReturn(Optional.empty());
 
         // when & then
-        assertThatThrownBy(() -> addressService.getAddressById(999))
+        assertThatThrownBy(() -> addressService.getAddressById(999L))
                 .isInstanceOf(AddressNotFoundException.class)
                 .hasMessageContaining("주소를 찾을 수 없습니다");
     }
@@ -131,15 +130,15 @@ class AddressServiceTest {
     @Test
     void deleteAddress_정상삭제_성공() {
         // given
-        when(addressRepository.findById(1)).thenReturn(Optional.of(address));
+        when(addressRepository.findById(1L)).thenReturn(Optional.of(address));
         when(addressRepository.save(any(Address.class))).thenReturn(address);
 
         // when
-        Address result = addressService.deleteAddress(1);
+        Address result = addressService.deleteAddress(1L);
 
         // then
         assertThat(result.getIsDeleted()).isTrue();
-        verify(addressRepository, times(1)).findById(1);
+        verify(addressRepository, times(1)).findById(1L);
         verify(addressRepository, times(1)).save(address);
     }
 }

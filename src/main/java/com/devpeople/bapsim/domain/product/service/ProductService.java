@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Product getProductById(Integer id) {
+    public Product getProductById(Long id) {
 
         return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
@@ -28,7 +28,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product deleteProduct(Integer id) {
+    public Product deleteProduct(Long id) {
 
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         product.setDescription("상품 삭제");
