@@ -15,7 +15,7 @@ import java.util.List;
 public class StoreService {
     private final StoreRepository storeRepository;
 
-    public Store getStoreById(Integer id) {
+    public Store getStoreById(Long id) {
 
         return storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException(id));
     }
@@ -29,7 +29,7 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
-    public Store deleteStore(Integer id) {
+    public Store deleteStore(Long id) {
 
         Store store = storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException(id));
         store.setIsDeleted(true);

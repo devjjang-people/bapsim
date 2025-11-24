@@ -17,7 +17,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User getUserById(Integer id) {
+    public User getUserById(Long id) {
 
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User deleteUser(Integer id) {
+    public User deleteUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setStatus("WITHDRAWN"); // 삭제
 
