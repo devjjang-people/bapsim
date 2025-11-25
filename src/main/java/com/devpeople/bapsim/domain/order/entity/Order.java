@@ -7,7 +7,6 @@ import lombok.*;
 /**
  *  주문(Order) 엔티티
  */
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
