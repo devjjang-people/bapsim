@@ -2,7 +2,8 @@ package com.devpeople.bapsim.domain.product.service;
 
 import com.devpeople.bapsim.domain.product.entity.Product;
 import com.devpeople.bapsim.domain.product.repository.ProductRepository;
-import com.devpeople.bapsim.global.exception.ProductNotFoundException;
+import com.devpeople.bapsim.global.exception.CustomException;
+import com.devpeople.bapsim.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class ProductService {
 
     public Product getProductById(Long id) {
 
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        return productRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 
     public List<Product> getProductList() {
@@ -30,7 +31,7 @@ public class ProductService {
 
     public Product deleteProduct(Long id) {
 
-        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        Product product = productRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
         product.setDescription("상품 삭제");
         product.setIsDeleted(true);
 
