@@ -1,6 +1,5 @@
 package com.devpeople.bapsim.domain.event.service;
 
-import com.devpeople.bapsim.domain.address.entity.Address;
 import com.devpeople.bapsim.domain.event.entity.Event;
 import com.devpeople.bapsim.domain.event.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
