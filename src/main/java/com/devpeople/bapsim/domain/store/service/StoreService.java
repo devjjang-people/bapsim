@@ -2,7 +2,8 @@ package com.devpeople.bapsim.domain.store.service;
 
 import com.devpeople.bapsim.domain.store.entity.Store;
 import com.devpeople.bapsim.domain.store.repository.StoreRepository;
-import com.devpeople.bapsim.global.exception.StoreNotFoundException;
+import com.devpeople.bapsim.global.exception.CustomException;
+import com.devpeople.bapsim.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class StoreService {
 
     public Store getStoreById(Long id) {
 
-        return storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException(id));
+        return storeRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
     }
 
     public List<Store> getStoreList() {
@@ -31,7 +32,7 @@ public class StoreService {
 
     public Store deleteStore(Long id) {
 
-        Store store = storeRepository.findById(id).orElseThrow(() -> new StoreNotFoundException(id));
+        Store store = storeRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         store.setIsDeleted(true);
 
         return storeRepository.save(store);

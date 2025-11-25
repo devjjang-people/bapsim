@@ -3,7 +3,8 @@ package com.devpeople.bapsim.domain.product.service;
 import com.devpeople.bapsim.domain.product.entity.Product;
 import com.devpeople.bapsim.domain.product.repository.ProductRepository;
 import com.devpeople.bapsim.domain.store.entity.Store;
-import com.devpeople.bapsim.global.exception.ProductNotFoundException;
+import com.devpeople.bapsim.global.exception.CustomException;
+import com.devpeople.bapsim.global.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -80,9 +81,12 @@ class ProductServiceTest {
         given(productRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 ProductNotFoundException이 발생하는지 검증
-        assertThrows(ProductNotFoundException.class, () -> {
-            productService.getProductById(99L);
-        });
+        assertThatThrownBy(() -> productService.getProductById(999L))
+                .isInstanceOf(CustomException.class)
+                .satisfies(ex -> {
+                    CustomException ce = (CustomException) ex;
+                    assertThat(ce.getErrorCode()).isEqualTo(ErrorCode.PRODUCT_NOT_FOUND);
+                });
     }
 
     @Test
@@ -153,8 +157,11 @@ class ProductServiceTest {
         given(productRepository.findById(99L)).willReturn(Optional.empty());
 
         // When & Then: 메서드 호출 시 ProductNotFoundException이 발생하는지 검증
-        assertThrows(ProductNotFoundException.class, () -> {
-            productService.deleteProduct(99L);
-        });
+        assertThatThrownBy(() -> productService.deleteProduct(99L))
+                .isInstanceOf(CustomException.class)
+                .satisfies(ex -> {
+                    CustomException ce = (CustomException) ex;
+                    assertThat(ce.getErrorCode()).isEqualTo(ErrorCode.PRODUCT_NOT_FOUND);
+                });
     }
 }

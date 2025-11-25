@@ -2,7 +2,8 @@ package com.devpeople.bapsim.domain.address.service;
 
 import com.devpeople.bapsim.domain.address.entity.Address;
 import com.devpeople.bapsim.domain.address.repository.AddressRepository;
-import com.devpeople.bapsim.global.exception.AddressNotFoundException;
+import com.devpeople.bapsim.global.exception.CustomException;
+import com.devpeople.bapsim.global.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -62,8 +63,11 @@ class AddressServiceTest {
 
         // when & then
         assertThatThrownBy(() -> addressService.getAddressById(999L))
-                .isInstanceOf(AddressNotFoundException.class)
-                .hasMessageContaining("주소를 찾을 수 없습니다");
+                .isInstanceOf(CustomException.class)
+                .satisfies(ex -> {
+                    CustomException ce = (CustomException) ex;
+                    assertThat(ce.getErrorCode()).isEqualTo(ErrorCode.ADDRESS_NOT_FOUND);
+                });
     }
 
     @Test

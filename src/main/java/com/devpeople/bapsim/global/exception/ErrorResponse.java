@@ -1,10 +1,15 @@
 package com.devpeople.bapsim.global.exception;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@AllArgsConstructor
 public class ErrorResponse {
-    private final String message;
     private final String code;
+    private final String message;
     private final LocalDateTime timestamp;
 
     public ErrorResponse(String code, String message) {
@@ -13,7 +18,10 @@ public class ErrorResponse {
         this.timestamp = LocalDateTime.now();
     }
 
-    public String getCode() { return code; }
-    public String getMessage() { return message; }
-    public LocalDateTime getTimestamp() { return timestamp; }
+    public static ErrorResponse of(ErrorCode errorCode) {
+        return new ErrorResponse(
+                errorCode.getCode(),
+                errorCode.getMessage()
+        );
+    }
 }
