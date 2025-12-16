@@ -25,7 +25,7 @@ public class CartService {
     public Cart createOrGetCart(Long userId, Long storeId) {
 
         // 이미 같은 가게 장바구니가 존재하는 경우 반환
-        return cartRepository.finByUserIdAndUserId(userId, storeId)
+        return cartRepository.findByUserIdAndStoreId(userId, storeId)
                 .orElseGet(() -> {
                     Cart cart = Cart.builder()
                             .userId(userId)
