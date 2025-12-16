@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://3.35.4.31:5432/bapsim
@@ -17,3 +20,14 @@ spring:
   sql:
     init:
       mode: never
+
+jwt:
+  issuer: bapsim
+  secret: "최소 32바이트 이상 랜덤 문자열로 교체하세요_예: 0123456789abcdef0123456789abcdef"
+  access-exp-seconds: 900        # 15분
+  refresh-exp-seconds: 1209600   # 14일
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

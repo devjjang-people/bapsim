@@ -1,13 +1,13 @@
 package com.devpeople.bapsim.domain.user.controller;
 
+import com.devpeople.bapsim.domain.auth.dto.CurrentUserResponse;
 import com.devpeople.bapsim.domain.user.dto.SignupRequest;
 import com.devpeople.bapsim.domain.user.entity.User;
 import com.devpeople.bapsim.domain.user.service.UserService;
+import com.devpeople.bapsim.global.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +29,13 @@ public class UserController {
     @PostMapping("/signup")
     public User signup(@RequestBody SignupRequest request) {
         return userService.signup(request);
+    }
+
+    /**
+     * 현재 인증된 사용자 정보 조회
+     * */
+    @GetMapping("/me")
+    public CurrentUserResponse getCurrentUser(@AuthenticationPrincipal CustomUserDetails principal) {
+        return new CurrentUserResponse(principal.getUserId(), principal.getEmail(), principal.getRoleName());
     }
 }
