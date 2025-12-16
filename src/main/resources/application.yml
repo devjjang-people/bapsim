@@ -3,27 +3,20 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bapsim
+    url: jdbc:postgresql://3.35.4.31:5432/bapsim
     username: bapsim_user
     password: bapsim1234
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
 
-jwt:
-  issuer: bapsim
-  secret: "최소 32바이트 이상 랜덤 문자열로 교체하세요_예: 0123456789abcdef0123456789abcdef"
-  access-exp-seconds: 900        # 15분
-  refresh-exp-seconds: 1209600   # 14일
-
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
+  sql:
+    init:
+      mode: never
