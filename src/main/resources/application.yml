@@ -1,25 +1,19 @@
 spring:
   datasource:
+    url: jdbc:postgresql://3.35.4.31:5432/bapsim
+    username: bapsim_user
+    password: bapsim1234
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres
-    username: postgres
-    password: bapsim1234@@
-    hikari:
-      maximum-pool-size: 3
-      minimum-idle: 1
-      connection-timeout: 30000
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-    show-sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
-server:
-  port: 8080
-
-logging:
-  level:
-    org.hibernate.SQL: info
+  sql:
+    init:
+      mode: never
