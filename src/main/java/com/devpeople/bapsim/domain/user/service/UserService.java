@@ -2,6 +2,8 @@ package com.devpeople.bapsim.domain.user.service;
 
 import com.devpeople.bapsim.domain.user.dto.SignupRequest;
 import com.devpeople.bapsim.domain.user.entity.User;
+import com.devpeople.bapsim.domain.user.entity.UserRole;
+import com.devpeople.bapsim.domain.user.entity.UserStatus;
 import com.devpeople.bapsim.domain.user.repository.UserRepository;
 import com.devpeople.bapsim.global.exception.CustomException;
 import com.devpeople.bapsim.global.exception.ErrorCode;
@@ -35,7 +37,7 @@ public class UserService {
 
     public User deleteUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        user.setStatus("WITHDRAWN"); // 삭제
+        user.setStatus(UserStatus.WITHDRAWN); // 삭제
 
         return userRepository.save(user);
     }
@@ -56,8 +58,8 @@ public class UserService {
                 .password(encryptedPassword)
                 .name(request.getName())
                 .phone(request.getPhone())
-                .role("USER")          // 기본 권한
-                .status("ACTIVE")      // 기본 상태
+                .role(UserRole.USER)          // 기본 권한
+                .status(UserStatus.ACTIVE)      // 기본 상태
                 .build();
 
         return userRepository.save(user);
