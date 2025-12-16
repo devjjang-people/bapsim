@@ -41,13 +41,15 @@ public class User extends BaseEntity {
     @Column(length = 20)
     private String phone;
 
-    /** 권한 (USER / ADMIN) */
+    /** 권한 */
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String role;
+    private UserRole role;
 
-    /** 계정 상태 (ACTIVE / WITHDRAWN) */
+    /** 계정 상태 */
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status;
+    private UserStatus status;
 
     /** 최근 로그인 시각 */
     @Column(name = "last_login_at")
